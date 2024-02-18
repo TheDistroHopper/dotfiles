@@ -1,3 +1,3 @@
 require("sarvesh.set")
 require("sarvesh.remap")
-require("sarvesh.packer")
+require("sarvesh.lazy")

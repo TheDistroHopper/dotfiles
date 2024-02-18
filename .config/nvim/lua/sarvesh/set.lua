@@ -30,21 +30,23 @@ vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
 -- vim.opt.guicursor = ""
-vim.opt.guifont = "Mononoki,JetBrainsMono Nerd Font:h18"
+vim.opt.guifont = "Mononoki Nerd Font:h22"
 
 -- Neovide settings
 vim.g.neovide_scale_factor = 1.0
 vim.g.neovide_transparency = 1.0
 vim.g.neovide_floating_opacity = 1.0
-vim.g.neovide_floating_blur_amount_x = 10.0
-vim.g.neovide_floating_blur_amount_y = 10.0
+vim.g.neovide_fullcreen = true
+vim.g.neovide_floating_blur_amount_x = 0.0
+vim.g.neovide_floating_blur_amount_y = 0.0
 vim.g.neovide_scroll_anmation_length = 0.3
 vim.g.neovide_hide_mouse_when_typing = true
 vim.g.neovide_underline_automatic_scaling = true
 vim.g.neovide_refresh_rate = 60
 vim.g.neovide_refresh_rate_idle = 5
 vim.g.neovide_input_alt_as_meta = true
-vim.g.neovide_cursor_animation_length = 0.1
+vim.g.neovide_cursor_animation_length = 0.13
+vim.g.neovide_cursor_animate_command_line = true
 vim.g.neovide_cursor_trail_size = 0.3
 vim.g.neovide_cursor_antialiasing = true
 vim.g.neovide_cursor_vfx_mode = "torpedo"
