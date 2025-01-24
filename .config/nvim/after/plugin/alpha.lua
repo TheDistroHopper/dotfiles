@@ -5,22 +5,25 @@ end
 
 local dashboard = require("alpha.themes.dashboard")
 dashboard.section.header.val = {
-    [[                                _     ]],
-    [[ ___  __ _ _ ____   _____   ___| |__  ]],
-    [[/ __|/ _` | '__\ \ / / _ \ / __| '_ \ ]],
-    [[\__ \ (_| | |   \ V /  __/_\__ \ | | |]],
-    [[|___/\__,_|_|    \_/ \___(_)___/_| |_|]],
+--     [[                                _     ]],
+--     [[ ___  __ _ _ ____   _____   ___| |__  ]],
+--     [[/ __|/ _` | '__\ \ / / _ \ / __| '_ \ ]],
+--     [[\__ \ (_| | |   \ V /  __/_\__ \ | | |]],
+--     [[|___/\__,_|_|    \_/ \___(_)___/_| |_|]],
+ [[   ░▄▀▀░█▒█▒█▀▄▒█▀▄░█▒░▒▄▀▄░██▄]],
+ [[   ▒▄██░▀▄█░█▀▒░█▀▄▒█▄▄░█▀█▒█▄█]],
+
 }
 dashboard.section.buttons.val = {
     -- dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
     -- dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
     dashboard.button("p", "  Find project", ":Telescope projects <CR>"),
-    dashboard.button("r", "  Recently used files", ":Telescope oldfiles <CR>"),
+    -- dashboard.button("r", "  Recently used files", ":Telescope oldfiles <CR>"),
     -- dashboard.button("t", "  Find text", ":Telescope live_grep <CR>"),
     -- dashboard.button("n", "  Notes", ":VimwikiIndex <CR>"),
     dashboard.button("c", "  Editor Configuration", ":e $MYVIMRC <CR>"),
     -- dashboard.button("t", "  Terminal Configuration", ":e $TERMCONF <CR>"),
-    dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
+    dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
 }
 
 local function footer()
@@ -29,7 +32,7 @@ local function footer()
 	-- local fortune = handle:read("*a")
 	-- handle:close()
 	-- return fortune
-	return "sarve.sh"
+	return "https://sarve.sh"
 end
 
 dashboard.section.footer.val = footer()
