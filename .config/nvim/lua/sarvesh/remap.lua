@@ -12,7 +12,7 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "Q", "<nop>")
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tms<CR>")
 vim.keymap.set("n", "<leader>pff", vim.lsp.buf.format)
-vim.keymap.set("n", "<leader>dd", ":Alpha<CR>")
+vim.keymap.set("n", "<leader>a", ":Alpha<CR>")
 vim.keymap.set("n", "<leader>q", ":q<CR>")
 
 vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>zz")

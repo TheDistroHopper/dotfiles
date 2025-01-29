@@ -114,6 +114,9 @@ local plugins = {
     "nvzone/volt",
     "nvzone/showkeys",
     "nvzone/timerly",
+
+    -- Diagnostics
+    "dgagn/diagflow.nvim"
 }
 
 local opts = {}

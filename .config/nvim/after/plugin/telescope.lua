@@ -3,13 +3,13 @@ vim.keymap.set('n', '<leader><leader>', builtin.resume, {})
 vim.keymap.set('n', '<leader>f', builtin.find_files, {})
 vim.keymap.set('n', '<leader>b', builtin.buffers, {})
 vim.keymap.set('n', '<leader>s', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>ds', function()
+vim.keymap.set('n', '<leader>d', function()
     builtin.lsp_document_symbols({
         symbols = { "method", "function", "class" }
     })
 end, {})
 vim.keymap.set('n', '<leader>ws', function()
-    builtin.lsp_dynamic_workspace_symbols({
+    builtin.lsp_workspace_symbols({
         symbols = { "method", "function", "class" }
     })
 end, {})
