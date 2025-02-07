@@ -1,4 +1,4 @@
-vim.opt.nu = true
+vim.opt.nu = false
 vim.opt.relativenumber = false
 
 vim.opt.tabstop = 4
@@ -28,6 +28,6 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
--- vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "

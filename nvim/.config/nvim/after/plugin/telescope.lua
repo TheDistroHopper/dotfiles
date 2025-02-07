@@ -2,6 +2,7 @@ local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader><leader>', builtin.resume, {})
 vim.keymap.set('n', '<leader>f', builtin.find_files, {})
 vim.keymap.set('n', '<leader>b', builtin.buffers, {})
+vim.keymap.set('n', '<leader>/', builtin.current_buffer_fuzzy_find, {})
 vim.keymap.set('n', '<leader>s', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>d', function()
     builtin.lsp_document_symbols({
@@ -55,6 +56,13 @@ require("telescope").setup({
             },
         },
         buffers = {
+            theme = "ivy",
+            layout_config = {
+                height = 0.9,
+                preview_width = 0.6,
+            }
+        },
+        current_buffer_fuzzy_find = {
             theme = "ivy",
             layout_config = {
                 height = 0.9,

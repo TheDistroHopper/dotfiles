@@ -1,4 +1,5 @@
-vim.keymap.set("n", "<leader>e", vim.cmd.Explore)
+-- vim.keymap.set("n", "<leader>e", vim.cmd.Explore)
+vim.keymap.set("n", "<leader>e", function() MiniFiles.open() end)
 -- vim.keymap.set("n", "<leader>e", ":Oil<CR>")
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")

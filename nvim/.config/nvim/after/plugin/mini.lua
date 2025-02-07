@@ -31,13 +31,19 @@ statusline.setup({
 -- } }
 
 -- Highlight word under cursor
-require('mini.cursorword').setup({})
+-- require('mini.cursorword').setup({})
 
 -- Tabline --
 -- require('mini.tabline').setup({})
 
 -- Surround --
-require('mini.surround').setup({})
+-- require('mini.surround').setup({})
 
 -- Autopairs --
 require('mini.pairs').setup({})
+
+-- Completion --
+-- require('mini.completion').setup()
+
+-- Files
+require('mini.files').setup()
