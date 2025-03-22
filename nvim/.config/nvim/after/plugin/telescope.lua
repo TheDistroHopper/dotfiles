@@ -17,7 +17,8 @@ end, {})
 vim.keymap.set('n', '<leader>gf', builtin.git_files, {})
 vim.keymap.set('n', '<leader>gs', builtin.git_status, {})
 vim.keymap.set('n', '<leader>gc', builtin.git_commits, {})
-vim.keymap.set('n', 'gr', builtin.lsp_references, {})
+-- vim.keymap.set('n', 'gr', builtin.lsp_references, {})
+-- vim.keymap.set('n', 'gd', builtin.lsp_definitions, {})
 -- vim.keymap.set('n', '<leader>s', function()
 --     builtin.grep_string({ search = vim.fn.input("Grep > ") })
 -- end)
@@ -26,8 +27,9 @@ require('telescope').load_extension('fzf')
 
 require("telescope").setup({
     defaults = {
-        prompt_prefix        = " > ",
-        selection_caret      = "  ",
+        prompt_prefix        = "   ",
+        selection_caret      = " ",
+        entry_prefix         = " ",
         sorting_strategy     = "ascending",
         file_ignore_patterns = {
             "^%.git/",
@@ -42,7 +44,7 @@ require("telescope").setup({
                 ["<C-s>"] = "select_horizontal"
             }
         },
-        winblend             = 0,
+        winblend             = 10,
         border               = {},
         borderchars          = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
         color_devicons       = true,

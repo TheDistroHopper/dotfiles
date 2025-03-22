@@ -9,7 +9,7 @@ statusline.setup({
   content = {
     active = function()
       local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 150 })
-      local filename = MiniStatusline.section_filename({ trunc_width = 150 })
+      -- local filename = MiniStatusline.section_filename({ trunc_width = 150 })
       local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 150 })
       local location = MiniStatusline.section_location({ trunc_width = 75 })
 
@@ -31,19 +31,22 @@ statusline.setup({
 -- } }
 
 -- Highlight word under cursor
--- require('mini.cursorword').setup({})
+require('mini.cursorword').setup({})
 
 -- Tabline --
--- require('mini.tabline').setup({})
+require('mini.tabline').setup({})
+
+-- require("buvvers").setup()
+-- require("buvvers").open()
 
 -- Surround --
 -- require('mini.surround').setup({})
 
 -- Autopairs --
-require('mini.pairs').setup({})
+-- require('mini.pairs').setup({})
 
 -- Completion --
 -- require('mini.completion').setup()
 
 -- Files
-require('mini.files').setup()
+-- require('mini.files').setup()

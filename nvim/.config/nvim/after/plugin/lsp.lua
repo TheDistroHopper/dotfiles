@@ -10,7 +10,7 @@ vim.diagnostic.config({
     virtual_text = false,
     signs = false,
     underline = true,
-    update_in_insert = false,
+    update_in_insert = true,
     severity_sort = false,
 })
 
@@ -75,6 +75,9 @@ require('diagflow').setup({
 -- Winbar
 require("barbecue").setup({
     theme = {
-        normal = { fg = "#565f8a", bg = "#24283b" },
+        normal = { fg = "#c4a7e7", bg = "#2a273f" },
+        -- normal = { bg = "#2a273f" },
+        dirname = { fg = "#737aa2" },
+        basename = { bold = true },
     },
 })

@@ -1,5 +1,5 @@
--- vim.keymap.set("n", "<leader>e", vim.cmd.Explore)
-vim.keymap.set("n", "<leader>e", function() MiniFiles.open() end)
+vim.keymap.set("n", "<leader>e", vim.cmd.Explore)
+-- vim.keymap.set("n", "<leader>e", function() MiniFiles.open() end)
 -- vim.keymap.set("n", "<leader>e", ":Oil<CR>")
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -14,7 +14,9 @@ vim.keymap.set("n", "Q", "<nop>")
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tms<CR>")
 vim.keymap.set("n", "<leader>pff", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader>a", ":Alpha<CR>")
-vim.keymap.set("n", "<leader>q", ":q<CR>")
+vim.keymap.set("n", "<leader>q", ":bd<CR>")
+vim.keymap.set("n", "<Tab>", ":bnext<CR>")
+vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>")
 
 vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>zz")
