@@ -37,17 +37,31 @@ local plugins = {
 
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
     -- 'nvim-treesitter/nvim-treesitter-context',
+    -- {
+    --     "utilyre/barbecue.nvim",
+    --     name = "barbecue",
+    --     version = "*",
+    --     dependencies = {
+    --         "SmiteshP/nvim-navic",
+    --         "nvim-tree/nvim-web-devicons", -- optional dependency
+    --     },
+    --     opts = {
+    --         -- configurations go here
+    --     },
+    -- },
     {
-        "utilyre/barbecue.nvim",
-        name = "barbecue",
-        version = "*",
+        'Bekaboo/dropbar.nvim',
+        -- optional, but required for fuzzy finder support
         dependencies = {
-            "SmiteshP/nvim-navic",
-            "nvim-tree/nvim-web-devicons", -- optional dependency
+            'nvim-telescope/telescope-fzf-native.nvim',
+            build = 'make'
         },
-        opts = {
-            -- configurations go here
-        },
+        config = function()
+            local dropbar_api = require('dropbar.api')
+            -- vim.keymap.set('n', '<Leader>;', dropbar_api.pick, { desc = 'Pick symbols in winbar' })
+            vim.keymap.set('n', '[;', dropbar_api.goto_context_start, { desc = 'Go to start of current context' })
+            vim.keymap.set('n', '];', dropbar_api.select_next_context, { desc = 'Select next context' })
+        end
     },
     "theprimeagen/harpoon",
     { "akinsho/toggleterm.nvim",         version = "*",      config = true },
@@ -72,8 +86,8 @@ local plugins = {
             openai = {
                 endpoint = "https://api.openai.com/v1",
                 model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
-                timeout = 30000, -- timeout in milliseconds
-                temperature = 0, -- adjust if needed
+                timeout = 30000,  -- timeout in milliseconds
+                temperature = 0,  -- adjust if needed
                 max_tokens = 4096,
                 -- reasoning_effort = "high" -- only supported for reasoning models (o1, etc.)
             },
@@ -87,12 +101,12 @@ local plugins = {
             "nvim-lua/plenary.nvim",
             "MunifTanjim/nui.nvim",
             --- The below dependencies are optional,
-            "echasnovski/mini.pick", -- for file_selector provider mini.pick
+            "echasnovski/mini.pick",         -- for file_selector provider mini.pick
             "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-            "hrsh7th/nvim-cmp",      -- autocompletion for avante commands and mentions
-            "ibhagwan/fzf-lua",      -- for file_selector provider fzf
-            "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-            "zbirenbaum/copilot.lua", -- for providers='copilot'
+            "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
+            "ibhagwan/fzf-lua",              -- for file_selector provider fzf
+            "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
+            "zbirenbaum/copilot.lua",        -- for providers='copilot'
             {
                 -- support for image pasting
                 "HakonHarnes/img-clip.nvim",
@@ -142,6 +156,34 @@ local plugins = {
         end,
     },
     { "echasnovski/mini.nvim",      version = "*" },
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        ---@type snacks.Config
+        opts = {
+            layout = {
+                -- your layout configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            },
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+            -- bigfile = { enabled = true },
+            -- dashboard = { enabled = true },
+            -- explorer = { enabled = true },
+            -- indent = { enabled = true },
+            -- input = { enabled = true },
+            picker = { enabled = true },
+            -- notifier = { enabled = true },
+            -- quickfile = { enabled = true },
+            -- scope = { enabled = true },
+            scroll = { enabled = true },
+            -- statuscolumn = { enabled = true },
+            -- words = { enabled = true },
+        },
+    },
     "brenoprata10/nvim-highlight-colors",
     "nvzone/volt",
     "nvzone/showkeys",
@@ -227,10 +269,10 @@ local plugins = {
                     -- -- Jump to the definition of the word under your cursor.
                     -- --  This is where a variable was first declared, or where a function is defined, etc.
                     -- --  To jump back, press <C-t>.
-                    map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+                    -- map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
                     -- -- Find references for the word under your cursor.
-                    map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+                    -- map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
                     -- -- Jump to the implementation of the word under your cursor.
                     -- --  Useful when your language has ways of declaring types without an actual implementation.
@@ -392,123 +434,124 @@ local plugins = {
             }
         end,
     },
+    'aidancz/buvvers.nvim',
 
-    { -- Autocompletion
-        'hrsh7th/nvim-cmp',
-        event = 'InsertEnter',
-        dependencies = {
-            -- Snippet Engine & its associated nvim-cmp source
-            {
-                'L3MON4D3/LuaSnip',
-                build = (function()
-                    -- Build Step is needed for regex support in snippets.
-                    -- This step is not supported in many windows environments.
-                    -- Remove the below condition to re-enable on windows.
-                    if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
-                        return
-                    end
-                    return 'make install_jsregexp'
-                end)(),
-                dependencies = {
-                    -- `friendly-snippets` contains a variety of premade snippets.
-                    --    See the README about individual language/framework/plugin snippets:
-                    --    https://github.com/rafamadriz/friendly-snippets
-                    -- {
-                    --   'rafamadriz/friendly-snippets',
-                    --   config = function()
-                    --     require('luasnip.loaders.from_vscode').lazy_load()
-                    --   end,
-                    -- },
-                },
-            },
-            'saadparwaiz1/cmp_luasnip',
-
-            -- Adds other completion capabilities.
-            --  nvim-cmp does not ship with all sources by default. They are split
-            --  into multiple repos for maintenance purposes.
-            'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-path',
-            'aidancz/buvvers.nvim',
-        },
-        config = function()
-            -- See `:help cmp`
-            local cmp = require 'cmp'
-            local luasnip = require 'luasnip'
-            luasnip.config.setup {}
-
-            cmp.setup {
-                snippet = {
-                    expand = function(args)
-                        luasnip.lsp_expand(args.body)
-                    end,
-                },
-                completion = { completeopt = 'menu,menuone,noinsert' },
-
-                -- For an understanding of why these mappings were
-                -- chosen, you will need to read `:help ins-completion`
-                --
-                -- No, but seriously. Please read `:help ins-completion`, it is really good!
-                mapping = cmp.mapping.preset.insert {
-                    -- Select the [n]ext item
-                    ['<C-n>'] = cmp.mapping.select_next_item(),
-                    -- Select the [p]revious item
-                    ['<C-p>'] = cmp.mapping.select_prev_item(),
-
-                    -- Scroll the documentation window [b]ack / [f]orward
-                    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-
-                    -- Accept ([y]es) the completion.
-                    --  This will auto-import if your LSP supports it.
-                    --  This will expand snippets if the LSP sent a snippet.
-                    ['<C-y>'] = cmp.mapping.confirm { select = true },
-
-                    -- If you prefer more traditional completion keymaps,
-                    -- you can uncomment the following lines
-                    --['<CR>'] = cmp.mapping.confirm { select = true },
-                    --['<Tab>'] = cmp.mapping.select_next_item(),
-                    --['<S-Tab>'] = cmp.mapping.select_prev_item(),
-
-                    -- Manually trigger a completion from nvim-cmp.
-                    --  Generally you don't need this, because nvim-cmp will display
-                    --  completions whenever it has completion options available.
-                    ['<C-Space>'] = cmp.mapping.complete {},
-
-                    -- Think of <c-l> as moving to the right of your snippet expansion.
-                    --  So if you have a snippet that's like:
-                    --  function $name($args)
-                    --    $body
-                    --  end
-                    --
-                    -- <c-l> will move you to the right of each of the expansion locations.
-                    -- <c-h> is similar, except moving you backwards.
-                    ['<C-l>'] = cmp.mapping(function()
-                        if luasnip.expand_or_locally_jumpable() then
-                            luasnip.expand_or_jump()
-                        end
-                    end, { 'i', 's' }),
-                    ['<C-h>'] = cmp.mapping(function()
-                        if luasnip.locally_jumpable(-1) then
-                            luasnip.jump(-1)
-                        end
-                    end, { 'i', 's' }),
-
-                    -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
-                    --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
-                },
-                sources = {
-                    {
-                        name = 'lazydev',
-                        -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
-                        group_index = 0,
-                    },
-                    { name = 'nvim_lsp' },
-                    { name = 'luasnip' },
-                    { name = 'path' },
-                },
-            }
-        end,
-    },
+    -- { -- Autocompletion
+    --     'hrsh7th/nvim-cmp',
+    --     event = 'InsertEnter',
+    --     dependencies = {
+    --         -- Snippet Engine & its associated nvim-cmp source
+    --         {
+    --             'L3MON4D3/LuaSnip',
+    --             build = (function()
+    --                 -- Build Step is needed for regex support in snippets.
+    --                 -- This step is not supported in many windows environments.
+    --                 -- Remove the below condition to re-enable on windows.
+    --                 if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
+    --                     return
+    --                 end
+    --                 return 'make install_jsregexp'
+    --             end)(),
+    --             dependencies = {
+    --                 -- `friendly-snippets` contains a variety of premade snippets.
+    --                 --    See the README about individual language/framework/plugin snippets:
+    --                 --    https://github.com/rafamadriz/friendly-snippets
+    --                 -- {
+    --                 --   'rafamadriz/friendly-snippets',
+    --                 --   config = function()
+    --                 --     require('luasnip.loaders.from_vscode').lazy_load()
+    --                 --   end,
+    --                 -- },
+    --             },
+    --         },
+    --         'saadparwaiz1/cmp_luasnip',
+    --
+    --         -- Adds other completion capabilities.
+    --         --  nvim-cmp does not ship with all sources by default. They are split
+    --         --  into multiple repos for maintenance purposes.
+    --         'hrsh7th/cmp-nvim-lsp',
+    --         'hrsh7th/cmp-path',
+    --         'aidancz/buvvers.nvim',
+    --     },
+    --     config = function()
+    --         -- See `:help cmp`
+    --         local cmp = require 'cmp'
+    --         local luasnip = require 'luasnip'
+    --         luasnip.config.setup {}
+    --
+    --         cmp.setup {
+    --             snippet = {
+    --                 expand = function(args)
+    --                     luasnip.lsp_expand(args.body)
+    --                 end,
+    --             },
+    --             completion = { completeopt = 'menu,menuone,noinsert' },
+    --
+    --             -- For an understanding of why these mappings were
+    --             -- chosen, you will need to read `:help ins-completion`
+    --             --
+    --             -- No, but seriously. Please read `:help ins-completion`, it is really good!
+    --             mapping = cmp.mapping.preset.insert {
+    --                 -- Select the [n]ext item
+    --                 ['<C-n>'] = cmp.mapping.select_next_item(),
+    --                 -- Select the [p]revious item
+    --                 ['<C-p>'] = cmp.mapping.select_prev_item(),
+    --
+    --                 -- Scroll the documentation window [b]ack / [f]orward
+    --                 ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    --                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    --
+    --                 -- Accept ([y]es) the completion.
+    --                 --  This will auto-import if your LSP supports it.
+    --                 --  This will expand snippets if the LSP sent a snippet.
+    --                 ['<C-y>'] = cmp.mapping.confirm { select = true },
+    --
+    --                 -- If you prefer more traditional completion keymaps,
+    --                 -- you can uncomment the following lines
+    --                 --['<CR>'] = cmp.mapping.confirm { select = true },
+    --                 --['<Tab>'] = cmp.mapping.select_next_item(),
+    --                 --['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    --
+    --                 -- Manually trigger a completion from nvim-cmp.
+    --                 --  Generally you don't need this, because nvim-cmp will display
+    --                 --  completions whenever it has completion options available.
+    --                 ['<C-Space>'] = cmp.mapping.complete {},
+    --
+    --                 -- Think of <c-l> as moving to the right of your snippet expansion.
+    --                 --  So if you have a snippet that's like:
+    --                 --  function $name($args)
+    --                 --    $body
+    --                 --  end
+    --                 --
+    --                 -- <c-l> will move you to the right of each of the expansion locations.
+    --                 -- <c-h> is similar, except moving you backwards.
+    --                 ['<C-l>'] = cmp.mapping(function()
+    --                     if luasnip.expand_or_locally_jumpable() then
+    --                         luasnip.expand_or_jump()
+    --                     end
+    --                 end, { 'i', 's' }),
+    --                 ['<C-h>'] = cmp.mapping(function()
+    --                     if luasnip.locally_jumpable(-1) then
+    --                         luasnip.jump(-1)
+    --                     end
+    --                 end, { 'i', 's' }),
+    --
+    --                 -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
+    --                 --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
+    --             },
+    --             sources = {
+    --                 {
+    --                     name = 'lazydev',
+    --                     -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
+    --                     group_index = 0,
+    --                 },
+    --                 { name = 'nvim_lsp' },
+    --                 { name = 'luasnip' },
+    --                 { name = 'path' },
+    --             },
+    --         }
+    --     end,
+    -- },
 }
 
 local opts = {}

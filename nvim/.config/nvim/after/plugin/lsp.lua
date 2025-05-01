@@ -73,11 +73,11 @@ require('diagflow').setup({
 -- })
 
 -- Winbar
-require("barbecue").setup({
-    theme = {
-        normal = { fg = "#c4a7e7", bg = "#2a273f" },
-        -- normal = { bg = "#2a273f" },
-        dirname = { fg = "#737aa2" },
-        basename = { bold = true },
-    },
-})
+-- require("barbecue").setup({
+--     theme = {
+--         normal = { fg = "#c4a7e7", bg = "#2a273f" },
+--         -- normal = { bg = "#2a273f" },
+--         dirname = { fg = "#737aa2" },
+--         basename = { bold = true },
+--     },
+-- })
