@@ -16,7 +16,7 @@ require('gitsigns').setup {
         untracked    = { text = '┆' },
     },
     signs_staged_enable          = true,
-    signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
+    signcolumn                   = true,  -- Toggle with `:Gitsigns toggle_signs`
     numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
     linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
     word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
@@ -37,7 +37,7 @@ require('gitsigns').setup {
     current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
     sign_priority                = 6,
     update_debounce              = 100,
-    status_formatter             = nil, -- Use default
+    status_formatter             = nil,   -- Use default
     max_file_length              = 40000, -- Disable if file is longer than this (in lines)
     preview_config               = {
         -- Options passed to nvim_open_win
@@ -75,6 +75,67 @@ require('gitsigns').setup {
         end)
 
         map('n', ']p', gitsigns.preview_hunk)
-
+        map('n', '[p', gitsigns.preview_hunk)
+        -- map('n', 'gb', gitsigns.blame_line)
+        map('n', 'gb', function() Snacks.git.blame_line() end)
     end
+}
+
+require('satellite').setup {
+    current_only = false,
+    winblend = 50,
+    zindex = 40,
+    excluded_filetypes = {},
+    width = 1,
+    handlers = {
+        cursor = {
+            enable = true,
+            -- Supports any number of symbols
+            symbols = { '⎺', '⎻', '⎼', '⎽' }
+            -- symbols = { '⎻', '⎼' }
+            -- Highlights:
+            -- - SatelliteCursor (default links to NonText
+        },
+        search = {
+            enable = false,
+            -- Highlights:
+            -- - SatelliteSearch (default links to Search)
+            -- - SatelliteSearchCurrent (default links to SearchCurrent)
+        },
+        diagnostic = {
+            enable = false,
+            signs = { '-', '=', '≡' },
+            min_severity = vim.diagnostic.severity.HINT,
+            -- Highlights:
+            -- - SatelliteDiagnosticError (default links to DiagnosticError)
+            -- - SatelliteDiagnosticWarn (default links to DiagnosticWarn)
+            -- - SatelliteDiagnosticInfo (default links to DiagnosticInfo)
+            -- - SatelliteDiagnosticHint (default links to DiagnosticHint)
+        },
+        gitsigns = {
+            enable = true,
+            signs = { -- can only be a single character (multibyte is okay)
+                add = "│",
+                change = "│",
+                delete = "-",
+            },
+            -- Highlights:
+            -- SatelliteGitSignsAdd (default links to GitSignsAdd)
+            -- SatelliteGitSignsChange (default links to GitSignsChange)
+            -- SatelliteGitSignsDelete (default links to GitSignsDelete)
+        },
+        marks = {
+            enable = false,
+            show_builtins = false, -- shows the builtin marks like [ ] < >
+            key = 'm'
+            -- Highlights:
+            -- SatelliteMark (default links to Normal)
+        },
+        quickfix = {
+            enable = false,
+            signs = { '-', '=', '≡' },
+            -- Highlights:
+            -- SatelliteQuickfix (default links to WarningMsg)
+        }
+    },
 }

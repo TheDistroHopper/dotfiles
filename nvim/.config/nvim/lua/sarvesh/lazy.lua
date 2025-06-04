@@ -19,7 +19,61 @@ local plugins = {
             { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
         },
     },
-
+    -- {
+    --     "AstroNvim/astrocommunity",
+    --     { import = "astrocommunity.recipes.telescope-nvchad-theme" },
+    -- },
+    {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    },
+    {
+        'nvim-telescope/telescope-project.nvim',
+        dependencies = {
+            'nvim-telescope/telescope.nvim',
+        },
+    },
+    {
+        'linux-cultist/venv-selector.nvim',
+        dependencies = { 'neovim/nvim-lspconfig', 'nvim-telescope/telescope.nvim', 'mfussenegger/nvim-dap-python' },
+        opts = {
+            -- Your options go here
+            -- name = "venv",
+            -- auto_refresh = false
+            stay_on_this_version = true,
+        },
+        event = 'VeryLazy', -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
+        keys = {
+            -- Keymap to open VenvSelector to pick a venv.
+            { '<leader>vs', '<cmd>VenvSelect<cr>' },
+            -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
+            { '<leader>vc', '<cmd>VenvSelectCached<cr>' },
+        },
+    },
+    -- {
+    --     "coffebar/neovim-project",
+    --     opts = {
+    --         projects = { -- define project roots
+    --             "~/Code/*",
+    --             "~/.config/*",
+    --         },
+    --         picker = {
+    --             type = "telescope", -- or "fzf-lua"
+    --         }
+    --     },
+    --     init = function()
+    --         -- enable saving the state of plugins in the session
+    --         vim.opt.sessionoptions:append("globals") -- save global variables that start with an uppercase letter and contain at least one lowercase letter.
+    --     end,
+    --     dependencies = {
+    --         { "nvim-lua/plenary.nvim" },
+    --         -- optional picker
+    --         { "nvim-telescope/telescope.nvim" },
+    --         { "Shatur/neovim-session-manager" },
+    --     },
+    --     lazy = false,
+    --     priority = 100,
+    -- },
     -------------------------------------------------
     -- Themes ---------------------------------------
     -------------------------------------------------
@@ -29,111 +83,129 @@ local plugins = {
         priority = 1000,
         opts = {},
     },
-    "sainnhe/gruvbox-material",
-    "rose-pine/neovim",
-    'Mofiqul/vscode.nvim',
     -------------------------------------------------
     -------------------------------------------------
 
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
     -- 'nvim-treesitter/nvim-treesitter-context',
+    {
+        "utilyre/barbecue.nvim",
+        name = "barbecue",
+        version = "*",
+        dependencies = {
+            "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons", -- optional dependency
+        },
+        opts = {
+            -- configurations go here
+        },
+    },
     -- {
-    --     "utilyre/barbecue.nvim",
-    --     name = "barbecue",
-    --     version = "*",
+    --     'Bekaboo/dropbar.nvim',
+    --     -- optional, but required for fuzzy finder support
     --     dependencies = {
-    --         "SmiteshP/nvim-navic",
-    --         "nvim-tree/nvim-web-devicons", -- optional dependency
+    --         'nvim-telescope/telescope-fzf-native.nvim',
+    --         build = 'make'
     --     },
     --     opts = {
-    --         -- configurations go here
+    --         icons = {
+    --             ui = {
+    --                 bar = { separator = ' > ', extends = '…' },
+    --             },
+    --         },
     --     },
+    --     -- config = function()
+    --     --     local dropbar_api = require('dropbar.api')
+    --     --     -- vim.keymap.set('n', '<Leader>;', dropbar_api.pick, { desc = 'Pick symbols in winbar' })
+    --     --     vim.keymap.set('n', '[;', dropbar_api.goto_context_start, { desc = 'Go to start of current context' })
+    --     --     vim.keymap.set('n', '];', dropbar_api.select_next_context, { desc = 'Select next context' })
+    --     -- end
     -- },
     {
-        'Bekaboo/dropbar.nvim',
-        -- optional, but required for fuzzy finder support
+        'romgrk/barbar.nvim',
         dependencies = {
-            'nvim-telescope/telescope-fzf-native.nvim',
-            build = 'make'
+            'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
+            'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
         },
-        config = function()
-            local dropbar_api = require('dropbar.api')
-            -- vim.keymap.set('n', '<Leader>;', dropbar_api.pick, { desc = 'Pick symbols in winbar' })
-            vim.keymap.set('n', '[;', dropbar_api.goto_context_start, { desc = 'Go to start of current context' })
-            vim.keymap.set('n', '];', dropbar_api.select_next_context, { desc = 'Select next context' })
-        end
+        -- init = function() vim.g.barbar_auto_setup = true end,
     },
     "theprimeagen/harpoon",
     { "akinsho/toggleterm.nvim",         version = "*",      config = true },
-
+    "lewis6991/satellite.nvim",
     -------------------------------------------------
     -- Git ---------------------------------------
     -------------------------------------------------
     "tpope/vim-fugitive",
+    -- 'tpope/vim-vinegar',
+    -- 'vimpostor/vim-tpipeline',
+    {
+        "nvim-lualine/lualine.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
     "lewis6991/gitsigns.nvim",
     -------------------------------------------------
     -------------------------------------------------
     "folke/zen-mode.nvim",
     "github/copilot.vim",
-    {
-        "yetone/avante.nvim",
-        event = "VeryLazy",
-        version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
-        opts = {
-            -- add any opts here
-            -- for example
-            provider = "openai",
-            openai = {
-                endpoint = "https://api.openai.com/v1",
-                model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
-                timeout = 30000,  -- timeout in milliseconds
-                temperature = 0,  -- adjust if needed
-                max_tokens = 4096,
-                -- reasoning_effort = "high" -- only supported for reasoning models (o1, etc.)
-            },
-        },
-        -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-        build = "make",
-        -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "stevearc/dressing.nvim",
-            "nvim-lua/plenary.nvim",
-            "MunifTanjim/nui.nvim",
-            --- The below dependencies are optional,
-            "echasnovski/mini.pick",         -- for file_selector provider mini.pick
-            "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-            "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
-            "ibhagwan/fzf-lua",              -- for file_selector provider fzf
-            "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
-            "zbirenbaum/copilot.lua",        -- for providers='copilot'
-            {
-                -- support for image pasting
-                "HakonHarnes/img-clip.nvim",
-                event = "VeryLazy",
-                opts = {
-                    -- recommended settings
-                    default = {
-                        embed_image_as_base64 = false,
-                        prompt_for_file_name = false,
-                        drag_and_drop = {
-                            insert_mode = true,
-                        },
-                        -- required for Windows users
-                        use_absolute_path = true,
-                    },
-                },
-            },
-            {
-                -- Make sure to set this up properly if you have lazy=true
-                'MeanderingProgrammer/render-markdown.nvim',
-                opts = {
-                    file_types = { "markdown", "Avante" },
-                },
-                ft = { "markdown", "Avante" },
-            },
-        },
-    },
+    -- {
+    --     "yetone/avante.nvim",
+    --     event = "VeryLazy",
+    --     version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
+    --     opts = {
+    --         -- add any opts here
+    --         -- for example
+    --         provider = "openai",
+    --         openai = {
+    --             endpoint = "https://api.openai.com/v1",
+    --             model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
+    --             timeout = 30000,  -- timeout in milliseconds
+    --             temperature = 0,  -- adjust if needed
+    --             max_tokens = 4096,
+    --             -- reasoning_effort = "high" -- only supported for reasoning models (o1, etc.)
+    --         },
+    --     },
+    --     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    --     build = "make",
+    --     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+    --     dependencies = {
+    --         "nvim-treesitter/nvim-treesitter",
+    --         "stevearc/dressing.nvim",
+    --         "nvim-lua/plenary.nvim",
+    --         "MunifTanjim/nui.nvim",
+    --         --- The below dependencies are optional,
+    --         "echasnovski/mini.pick",         -- for file_selector provider mini.pick
+    --         "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+    --         "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
+    --         "ibhagwan/fzf-lua",              -- for file_selector provider fzf
+    --         "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
+    --         "zbirenbaum/copilot.lua",        -- for providers='copilot'
+    --         {
+    --             -- support for image pasting
+    --             "HakonHarnes/img-clip.nvim",
+    --             event = "VeryLazy",
+    --             opts = {
+    --                 -- recommended settings
+    --                 default = {
+    --                     embed_image_as_base64 = false,
+    --                     prompt_for_file_name = false,
+    --                     drag_and_drop = {
+    --                         insert_mode = true,
+    --                     },
+    --                     -- required for Windows users
+    --                     use_absolute_path = true,
+    --                 },
+    --             },
+    --         },
+    --         {
+    --             -- Make sure to set this up properly if you have lazy=true
+    --             'MeanderingProgrammer/render-markdown.nvim',
+    --             opts = {
+    --                 file_types = { "markdown", "Avante" },
+    --             },
+    --             ft = { "markdown", "Avante" },
+    --         },
+    --     },
+    -- },
     -- {
     --     "goolord/alpha-nvim",
     --     config = function()
@@ -162,6 +234,26 @@ local plugins = {
         lazy = false,
         ---@type snacks.Config
         opts = {
+            styles = {
+                float = {
+                    -- title = " ",
+                    -- border = "rounded",
+                    position = "float",
+                    backdrop = 60,
+                    height = 0.9,
+                    width = 0.9,
+                    zindex = 50,
+                },
+                help = {
+                    position = "float",
+                    backdrop = false,
+                    border = "top",
+                    row = -1,
+                    width = 0,
+                    height = 0.9,
+                    sidescrolloff = 1,
+                }
+            },
             layout = {
                 -- your layout configuration comes here
                 -- or leave it empty to use the default settings
@@ -171,11 +263,30 @@ local plugins = {
             -- or leave it empty to use the default settings
             -- refer to the configuration section below
             -- bigfile = { enabled = true },
-            -- dashboard = { enabled = true },
+            -- chafa Pictures/7.jpg --format symbols --symbols vhalf --size 60x17 --stretch; sleep .1
+            dashboard = {
+                sections = {
+                    {
+                        section = "terminal",
+                        cmd = "ascii-image-converter ~/Pictures/neovide.png --color -d 60,20",
+                        height = 20,
+                        padding = 1,
+                    },
+                    {
+                        -- pane = 2,
+                        -- { section = "projects",   gap = 1, padding = 1 },
+                        { section = "startup" },
+                    },
+                },
+            },
             -- explorer = { enabled = true },
-            -- indent = { enabled = true },
+            terminal = {
+                win = { style = "float" },
+            },
+            indent = { enabled = true },
             -- input = { enabled = true },
             picker = { enabled = true },
+            git = { enabled = true },
             -- notifier = { enabled = true },
             -- quickfile = { enabled = true },
             -- scope = { enabled = true },
@@ -435,122 +546,190 @@ local plugins = {
         end,
     },
     'aidancz/buvvers.nvim',
+    { -- Autocompletion
+        'hrsh7th/nvim-cmp',
+        event = 'InsertEnter',
+        dependencies = {
+            -- Snippet Engine & its associated nvim-cmp source
+            {
+                'L3MON4D3/LuaSnip',
+                build = (function()
+                    -- Build Step is needed for regex support in snippets.
+                    -- This step is not supported in many windows environments.
+                    -- Remove the below condition to re-enable on windows.
+                    if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
+                        return
+                    end
+                    return 'make install_jsregexp'
+                end)(),
+                dependencies = {
+                    -- `friendly-snippets` contains a variety of premade snippets.
+                    --    See the README about individual language/framework/plugin snippets:
+                    --    https://github.com/rafamadriz/friendly-snippets
+                    -- {
+                    --   'rafamadriz/friendly-snippets',
+                    --   config = function()
+                    --     require('luasnip.loaders.from_vscode').lazy_load()
+                    --   end,
+                    -- },
+                },
+            },
+            'saadparwaiz1/cmp_luasnip',
 
-    -- { -- Autocompletion
-    --     'hrsh7th/nvim-cmp',
-    --     event = 'InsertEnter',
-    --     dependencies = {
-    --         -- Snippet Engine & its associated nvim-cmp source
-    --         {
-    --             'L3MON4D3/LuaSnip',
-    --             build = (function()
-    --                 -- Build Step is needed for regex support in snippets.
-    --                 -- This step is not supported in many windows environments.
-    --                 -- Remove the below condition to re-enable on windows.
-    --                 if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
-    --                     return
-    --                 end
-    --                 return 'make install_jsregexp'
-    --             end)(),
-    --             dependencies = {
-    --                 -- `friendly-snippets` contains a variety of premade snippets.
-    --                 --    See the README about individual language/framework/plugin snippets:
-    --                 --    https://github.com/rafamadriz/friendly-snippets
-    --                 -- {
-    --                 --   'rafamadriz/friendly-snippets',
-    --                 --   config = function()
-    --                 --     require('luasnip.loaders.from_vscode').lazy_load()
-    --                 --   end,
-    --                 -- },
-    --             },
-    --         },
-    --         'saadparwaiz1/cmp_luasnip',
-    --
-    --         -- Adds other completion capabilities.
-    --         --  nvim-cmp does not ship with all sources by default. They are split
-    --         --  into multiple repos for maintenance purposes.
-    --         'hrsh7th/cmp-nvim-lsp',
-    --         'hrsh7th/cmp-path',
-    --         'aidancz/buvvers.nvim',
+            -- Adds other completion capabilities.
+            --  nvim-cmp does not ship with all sources by default. They are split
+            --  into multiple repos for maintenance purposes.
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-path',
+            'aidancz/buvvers.nvim',
+        },
+        config = function()
+            -- See `:help cmp`
+            local cmp = require 'cmp'
+            local luasnip = require 'luasnip'
+            luasnip.config.setup {}
+
+            -- cmp.setup {
+            --     snippet = {
+            --         expand = function(args)
+            --             luasnip.lsp_expand(args.body)
+            --         end,
+            --     },
+            --     completion = { completeopt = 'menu,menuone,noinsert' },
+            --
+            --     -- For an understanding of why these mappings were
+            --     -- chosen, you will need to read `:help ins-completion`
+            --     --
+            --     -- No, but seriously. Please read `:help ins-completion`, it is really good!
+            --     mapping = cmp.mapping.preset.insert {
+            --         -- Select the [n]ext item
+            --         ['<C-n>'] = cmp.mapping.select_next_item(),
+            --         -- Select the [p]revious item
+            --         ['<C-p>'] = cmp.mapping.select_prev_item(),
+            --
+            --         -- Scroll the documentation window [b]ack / [f]orward
+            --         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+            --         ['<C-f>'] = cmp.mapping.scroll_docs(4),
+            --
+            --         -- Accept ([y]es) the completion.
+            --         --  This will auto-import if your LSP supports it.
+            --         --  This will expand snippets if the LSP sent a snippet.
+            --         ['<C-y>'] = cmp.mapping.confirm { select = true },
+            --
+            --         -- If you prefer more traditional completion keymaps,
+            --         -- you can uncomment the following lines
+            --         --['<CR>'] = cmp.mapping.confirm { select = true },
+            --         --['<Tab>'] = cmp.mapping.select_next_item(),
+            --         --['<S-Tab>'] = cmp.mapping.select_prev_item(),
+            --
+            --         -- Manually trigger a completion from nvim-cmp.
+            --         --  Generally you don't need this, because nvim-cmp will display
+            --         --  completions whenever it has completion options available.
+            --         ['<C-Space>'] = cmp.mapping.complete {},
+            --
+            --         -- Think of <c-l> as moving to the right of your snippet expansion.
+            --         --  So if you have a snippet that's like:
+            --         --  function $name($args)
+            --         --    $body
+            --         --  end
+            --         --
+            --         -- <c-l> will move you to the right of each of the expansion locations.
+            --         -- <c-h> is similar, except moving you backwards.
+            --         ['<C-l>'] = cmp.mapping(function()
+            --             if luasnip.expand_or_locally_jumpable() then
+            --                 luasnip.expand_or_jump()
+            --             end
+            --         end, { 'i', 's' }),
+            --         ['<C-h>'] = cmp.mapping(function()
+            --             if luasnip.locally_jumpable(-1) then
+            --                 luasnip.jump(-1)
+            --             end
+            --         end, { 'i', 's' }),
+            --
+            --         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
+            --         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
+            --     },
+            --     sources = {
+            --         {
+            --             name = 'lazydev',
+            --             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
+            --             group_index = 0,
+            --         },
+            --         { name = 'nvim_lsp' },
+            --         { name = 'luasnip' },
+            --         { name = 'path' },
+            --     },
+            -- }
+        end,
+    },
+    {
+        'saghen/blink.cmp',
+        -- optional: provides snippets for the snippet source
+        dependencies = { 'rafamadriz/friendly-snippets' },
+
+        -- use a release tag to download pre-built binaries
+        version = '1.*',
+        -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+        -- build = 'cargo build --release',
+        -- If you use nix, you can build from source using latest nightly rust with:
+        -- build = 'nix run .#build-plugin',
+
+        ---@module 'blink.cmp'
+        ---@type blink.cmp.Config
+        opts = {
+            -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+            -- 'super-tab' for mappings similar to vscode (tab to accept)
+            -- 'enter' for enter to accept
+            -- 'none' for no mappings
+            --
+            -- All presets have the following mappings:
+            -- C-space: Open menu or open docs if already open
+            -- C-n/C-p or Up/Down: Select next/previous item
+            -- C-e: Hide menu
+            -- C-k: Toggle signature help (if signature.enabled = true)
+            --
+            -- See :h blink-cmp-config-keymap for defining your own keymap
+            keymap = { preset = 'default' },
+
+            appearance = {
+                -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+                -- Adjusts spacing to ensure icons are aligned
+                nerd_font_variant = 'mono'
+            },
+
+            -- (Default) Only show the documentation popup when manually triggered
+            completion = { documentation = { auto_show = false } },
+
+            -- Default list of enabled providers defined so that you can extend it
+            -- elsewhere in your config, without redefining it, due to `opts_extend`
+            sources = {
+                default = { 'lsp', 'path', 'snippets', 'buffer' },
+            },
+
+            -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+            -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+            -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+            --
+            -- See the fuzzy documentation for more information
+            fuzzy = { implementation = "prefer_rust_with_warning" }
+        },
+        opts_extend = { "sources.default" }
+    },
+    -- lazy.nvim
+    -- {
+    --     "folke/noice.nvim",
+    --     event = "VeryLazy",
+    --     opts = {
+    --         -- add any options here
     --     },
-    --     config = function()
-    --         -- See `:help cmp`
-    --         local cmp = require 'cmp'
-    --         local luasnip = require 'luasnip'
-    --         luasnip.config.setup {}
-    --
-    --         cmp.setup {
-    --             snippet = {
-    --                 expand = function(args)
-    --                     luasnip.lsp_expand(args.body)
-    --                 end,
-    --             },
-    --             completion = { completeopt = 'menu,menuone,noinsert' },
-    --
-    --             -- For an understanding of why these mappings were
-    --             -- chosen, you will need to read `:help ins-completion`
-    --             --
-    --             -- No, but seriously. Please read `:help ins-completion`, it is really good!
-    --             mapping = cmp.mapping.preset.insert {
-    --                 -- Select the [n]ext item
-    --                 ['<C-n>'] = cmp.mapping.select_next_item(),
-    --                 -- Select the [p]revious item
-    --                 ['<C-p>'] = cmp.mapping.select_prev_item(),
-    --
-    --                 -- Scroll the documentation window [b]ack / [f]orward
-    --                 ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    --                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    --
-    --                 -- Accept ([y]es) the completion.
-    --                 --  This will auto-import if your LSP supports it.
-    --                 --  This will expand snippets if the LSP sent a snippet.
-    --                 ['<C-y>'] = cmp.mapping.confirm { select = true },
-    --
-    --                 -- If you prefer more traditional completion keymaps,
-    --                 -- you can uncomment the following lines
-    --                 --['<CR>'] = cmp.mapping.confirm { select = true },
-    --                 --['<Tab>'] = cmp.mapping.select_next_item(),
-    --                 --['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    --
-    --                 -- Manually trigger a completion from nvim-cmp.
-    --                 --  Generally you don't need this, because nvim-cmp will display
-    --                 --  completions whenever it has completion options available.
-    --                 ['<C-Space>'] = cmp.mapping.complete {},
-    --
-    --                 -- Think of <c-l> as moving to the right of your snippet expansion.
-    --                 --  So if you have a snippet that's like:
-    --                 --  function $name($args)
-    --                 --    $body
-    --                 --  end
-    --                 --
-    --                 -- <c-l> will move you to the right of each of the expansion locations.
-    --                 -- <c-h> is similar, except moving you backwards.
-    --                 ['<C-l>'] = cmp.mapping(function()
-    --                     if luasnip.expand_or_locally_jumpable() then
-    --                         luasnip.expand_or_jump()
-    --                     end
-    --                 end, { 'i', 's' }),
-    --                 ['<C-h>'] = cmp.mapping(function()
-    --                     if luasnip.locally_jumpable(-1) then
-    --                         luasnip.jump(-1)
-    --                     end
-    --                 end, { 'i', 's' }),
-    --
-    --                 -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
-    --                 --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
-    --             },
-    --             sources = {
-    --                 {
-    --                     name = 'lazydev',
-    --                     -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
-    --                     group_index = 0,
-    --                 },
-    --                 { name = 'nvim_lsp' },
-    --                 { name = 'luasnip' },
-    --                 { name = 'path' },
-    --             },
-    --         }
-    --     end,
+    --     dependencies = {
+    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+    --         "MunifTanjim/nui.nvim",
+    --         -- OPTIONAL:
+    --         --   `nvim-notify` is only needed, if you want to use the notification view.
+    --         --   If not available, we use `mini` as the fallback
+    --         -- "rcarriga/nvim-notify",
+    --     }
     -- },
 }
 
