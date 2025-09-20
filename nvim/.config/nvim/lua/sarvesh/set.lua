@@ -36,7 +36,7 @@ vim.g.mapleader = " "
 
 
 if vim.g.neovide then
-    vim.opt.guifont = "JetBrainsMono Nerd Font:h15"
+    vim.opt.guifont = "Mononoki Nerd Font:h15"
     -- vim.opt.guifont = "Liga SFMono Nerd Font:h14"
     -- Put anything you want to happen only in Neovide here
     -- Helper function for transparency formatting

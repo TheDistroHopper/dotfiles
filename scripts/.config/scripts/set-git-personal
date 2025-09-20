@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+git config --global user.name "Sarvesh Patil"
+git config --global user.email "sarvesh@sarve.sh"
+

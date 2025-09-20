@@ -1,8 +1,11 @@
 require("tokyonight").setup({
+    on_colors = function ()
+    end,
     on_highlights = function(hl, c)
-        local prompt = "#2d3149"
+        -- local prompt = "#2d3149"
+        local prompt = c.blue
         hl.TelescopeNormal = {
-            bg = c.bg_dark,
+            -- bg = c.bg_dark,
             fg = c.fg_dark,
         }
         hl.TelescopeBorder = {
@@ -18,12 +21,12 @@ require("tokyonight").setup({
         }
         hl.TelescopePromptTitle = {
             -- bg = prompt,
-            bg = "#7aa2f7",
+            bg = c.blue,
             -- fg = prompt,
         }
         hl.TelescopePreviewTitle = {
             -- bg = c.bg_dark,
-            bg = "#7aa2f7",
+            bg = c.blue,
             -- fg = c.bg_dark,
         }
         hl.TelescopeResultsTitle = {
@@ -31,6 +34,55 @@ require("tokyonight").setup({
             -- bg = "#7aa2f7",
             -- fg = c.bg_dark,
         }
+      hl.SnacksPicker = {
+        bg = c.bg_dark,
+        fg = c.fg_dark,
+      }
+      hl.SnacksPickerBorder = {
+        bg = c.bg_dark,
+        fg = c.bg_dark,
+      }
+      hl.SnacksPickerInput = {
+        -- bg = prompt,
+        bg = c.bg_dark,
+        -- fg = c.bg_dark,
+      }
+      hl.SnacksPickerInputTitle = {
+        fg = c.bg_dark,
+        bg = c.blue,
+      }
+      hl.SnacksPickerBoxTitle = {
+        -- bg = prompt,
+        -- fg = prompt
+        fg = c.bg_dark,
+        bg = c.blue,
+      }
+      hl.SnacksPickerBoxBorder = {
+        bg = c.bg_dark,
+        -- fg = c.bg_dark,
+        fg = prompt,
+      }
+      hl.SnacksPickerPreviewBorder = {
+        bg = c.bg_dark,
+        -- fg = c.bg_dark,
+        fg = prompt,
+      }
+      hl.SnacksPickerPreviewTitle = {
+        fg = c.bg_dark,
+        bg = c.blue,
+      }
+      hl.SnacksPickerInputBorder = {
+        fg = prompt,
+        bg = c.bg_dark,
+      }
+
+  -- Mini
+    hl.MiniFilesBorder          = { fg = prompt, bg = c.bg_dark }
+    hl.MiniFilesTitle    = { fg = c.blue}
+    hl.MiniFilesTitleFocused           = {fg=c.blue}
+    hl.MiniPickBorder = {fg=c.blue}
+    hl.MiniPickPrompt = {fg=c.blue}
+
     end,
 })
 
@@ -43,9 +95,3 @@ function ColorMyPencils(color)
 end
 
 ColorMyPencils()
-
-require("nvim-highlight-colors").setup {
-    render = 'background',      -- or 'foreground' or 'first_column'
-    enable_named_colors = true, -- or false
-    enable_tailwind = true,     -- or false
-}

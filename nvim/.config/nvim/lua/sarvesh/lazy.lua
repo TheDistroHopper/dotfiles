@@ -12,68 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-    {
-        "nvim-telescope/telescope.nvim",
-        dependencies = {
-            { "nvim-lua/plenary.nvim" },
-            { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-        },
-    },
-    -- {
-    --     "AstroNvim/astrocommunity",
-    --     { import = "astrocommunity.recipes.telescope-nvchad-theme" },
-    -- },
-    {
-        "nvim-telescope/telescope-file-browser.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
-    },
-    {
-        'nvim-telescope/telescope-project.nvim',
-        dependencies = {
-            'nvim-telescope/telescope.nvim',
-        },
-    },
-    {
-        'linux-cultist/venv-selector.nvim',
-        dependencies = { 'neovim/nvim-lspconfig', 'nvim-telescope/telescope.nvim', 'mfussenegger/nvim-dap-python' },
-        opts = {
-            -- Your options go here
-            -- name = "venv",
-            -- auto_refresh = false
-            stay_on_this_version = true,
-        },
-        event = 'VeryLazy', -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
-        keys = {
-            -- Keymap to open VenvSelector to pick a venv.
-            { '<leader>vs', '<cmd>VenvSelect<cr>' },
-            -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
-            { '<leader>vc', '<cmd>VenvSelectCached<cr>' },
-        },
-    },
-    -- {
-    --     "coffebar/neovim-project",
-    --     opts = {
-    --         projects = { -- define project roots
-    --             "~/Code/*",
-    --             "~/.config/*",
-    --         },
-    --         picker = {
-    --             type = "telescope", -- or "fzf-lua"
-    --         }
-    --     },
-    --     init = function()
-    --         -- enable saving the state of plugins in the session
-    --         vim.opt.sessionoptions:append("globals") -- save global variables that start with an uppercase letter and contain at least one lowercase letter.
-    --     end,
-    --     dependencies = {
-    --         { "nvim-lua/plenary.nvim" },
-    --         -- optional picker
-    --         { "nvim-telescope/telescope.nvim" },
-    --         { "Shatur/neovim-session-manager" },
-    --     },
-    --     lazy = false,
-    --     priority = 100,
-    -- },
     -------------------------------------------------
     -- Themes ---------------------------------------
     -------------------------------------------------
@@ -88,130 +26,27 @@ local plugins = {
 
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
     -- 'nvim-treesitter/nvim-treesitter-context',
-    {
-        "utilyre/barbecue.nvim",
-        name = "barbecue",
-        version = "*",
-        dependencies = {
-            "SmiteshP/nvim-navic",
-            "nvim-tree/nvim-web-devicons", -- optional dependency
-        },
-        opts = {
-            -- configurations go here
-        },
-    },
     -- {
-    --     'Bekaboo/dropbar.nvim',
-    --     -- optional, but required for fuzzy finder support
+    --     "utilyre/barbecue.nvim",
+    --     name = "barbecue",
+    --     version = "*",
     --     dependencies = {
-    --         'nvim-telescope/telescope-fzf-native.nvim',
-    --         build = 'make'
+    --         "SmiteshP/nvim-navic",
+    --         "nvim-tree/nvim-web-devicons", -- optional dependency
     --     },
     --     opts = {
-    --         icons = {
-    --             ui = {
-    --                 bar = { separator = ' > ', extends = '…' },
-    --             },
-    --         },
+    --         -- configurations go here
     --     },
-    --     -- config = function()
-    --     --     local dropbar_api = require('dropbar.api')
-    --     --     -- vim.keymap.set('n', '<Leader>;', dropbar_api.pick, { desc = 'Pick symbols in winbar' })
-    --     --     vim.keymap.set('n', '[;', dropbar_api.goto_context_start, { desc = 'Go to start of current context' })
-    --     --     vim.keymap.set('n', '];', dropbar_api.select_next_context, { desc = 'Select next context' })
-    --     -- end
     -- },
-    {
-        'romgrk/barbar.nvim',
-        dependencies = {
-            'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
-            'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-        },
-        -- init = function() vim.g.barbar_auto_setup = true end,
-    },
-    "theprimeagen/harpoon",
-    { "akinsho/toggleterm.nvim",         version = "*",      config = true },
-    "lewis6991/satellite.nvim",
     -------------------------------------------------
     -- Git ---------------------------------------
     -------------------------------------------------
     "tpope/vim-fugitive",
-    -- 'tpope/vim-vinegar',
-    -- 'vimpostor/vim-tpipeline',
-    {
-        "nvim-lualine/lualine.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-    },
     "lewis6991/gitsigns.nvim",
     -------------------------------------------------
     -------------------------------------------------
     "folke/zen-mode.nvim",
     "github/copilot.vim",
-    -- {
-    --     "yetone/avante.nvim",
-    --     event = "VeryLazy",
-    --     version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
-    --     opts = {
-    --         -- add any opts here
-    --         -- for example
-    --         provider = "openai",
-    --         openai = {
-    --             endpoint = "https://api.openai.com/v1",
-    --             model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
-    --             timeout = 30000,  -- timeout in milliseconds
-    --             temperature = 0,  -- adjust if needed
-    --             max_tokens = 4096,
-    --             -- reasoning_effort = "high" -- only supported for reasoning models (o1, etc.)
-    --         },
-    --     },
-    --     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    --     build = "make",
-    --     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-    --     dependencies = {
-    --         "nvim-treesitter/nvim-treesitter",
-    --         "stevearc/dressing.nvim",
-    --         "nvim-lua/plenary.nvim",
-    --         "MunifTanjim/nui.nvim",
-    --         --- The below dependencies are optional,
-    --         "echasnovski/mini.pick",         -- for file_selector provider mini.pick
-    --         "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-    --         "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
-    --         "ibhagwan/fzf-lua",              -- for file_selector provider fzf
-    --         "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
-    --         "zbirenbaum/copilot.lua",        -- for providers='copilot'
-    --         {
-    --             -- support for image pasting
-    --             "HakonHarnes/img-clip.nvim",
-    --             event = "VeryLazy",
-    --             opts = {
-    --                 -- recommended settings
-    --                 default = {
-    --                     embed_image_as_base64 = false,
-    --                     prompt_for_file_name = false,
-    --                     drag_and_drop = {
-    --                         insert_mode = true,
-    --                     },
-    --                     -- required for Windows users
-    --                     use_absolute_path = true,
-    --                 },
-    --             },
-    --         },
-    --         {
-    --             -- Make sure to set this up properly if you have lazy=true
-    --             'MeanderingProgrammer/render-markdown.nvim',
-    --             opts = {
-    --                 file_types = { "markdown", "Avante" },
-    --             },
-    --             ft = { "markdown", "Avante" },
-    --         },
-    --     },
-    -- },
-    -- {
-    --     "goolord/alpha-nvim",
-    --     config = function()
-    --         require("alpha").setup(require("alpha.themes.dashboard").config)
-    --     end,
-    -- },
     { "nvim-tree/nvim-web-devicons" },
     {
         "echasnovski/mini.icons",
@@ -266,15 +101,15 @@ local plugins = {
             -- chafa Pictures/7.jpg --format symbols --symbols vhalf --size 60x17 --stretch; sleep .1
             dashboard = {
                 sections = {
-                    {
-                        section = "terminal",
-                        cmd = "ascii-image-converter ~/Pictures/neovide.png --color -d 60,20",
-                        height = 20,
-                        padding = 1,
-                    },
+                    -- {
+                    --     section = "terminal",
+                    --     cmd = "ascii-image-converter ~/Pictures/neovide.png --color -d 60,20",
+                    --     height = 20,
+                    --     padding = 1,
+                    -- },
                     {
                         -- pane = 2,
-                        -- { section = "projects",   gap = 1, padding = 1 },
+                        { section = "projects",   gap = 1, padding = 1 },
                         { section = "startup" },
                     },
                 },
@@ -283,19 +118,59 @@ local plugins = {
             terminal = {
                 win = { style = "float" },
             },
-            indent = { enabled = true },
+            -- indent = { enabled = true },
             -- input = { enabled = true },
-            picker = { enabled = true },
+            -- picker = { enabled = true },
+            picker = { layouts = {
+                default = {
+                    layout = {
+                        backdrop = 90,
+                        box = "horizontal",
+                        width = 0.85,
+                        min_width = 100,
+                        height = 0.6,
+                        {
+                            box = "vertical",
+                            border = "rounded",
+                            title = "{title} {live} {flags}",
+                            { win = "input", height = 1, border = "bottom" },
+                            { win = "list", border = "none" },
+                        },
+                        { win = "preview", title = "{preview}", border = "rounded", width = 0.7 },
+                    },
+                },
+                select = {
+                    preview = false,
+                    layout = {
+                        backdrop = 90,
+                        width = 0.5,
+                        min_width = 80,
+                        height = 0.4,
+                        min_height = 3,
+                        box = "vertical",
+                        border = "rounded",
+                        title = "{title}",
+                        title_pos = "center",
+                        { win = "input", height = 1, border = "bottom" },
+                        { win = "list", border = "none" },
+                        { win = "preview", title = "{preview}", height = 0.6, border = "top" },
+                    },
+                }
+            } },
             git = { enabled = true },
             -- notifier = { enabled = true },
             -- quickfile = { enabled = true },
             -- scope = { enabled = true },
-            scroll = { enabled = true },
-            -- statuscolumn = { enabled = true },
-            -- words = { enabled = true },
+            -- scroll = { enabled = true },
+            scratch = { enabled = true },
+            statuscolumn = { enabled = true },
+            zen = { enabled = true },
         },
+        keys = {
+            { "<leader>.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+            { "<leader>S", function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+        }
     },
-    "brenoprata10/nvim-highlight-colors",
     "nvzone/volt",
     "nvzone/showkeys",
     "nvzone/timerly",
@@ -545,7 +420,6 @@ local plugins = {
             }
         end,
     },
-    'aidancz/buvvers.nvim',
     { -- Autocompletion
         'hrsh7th/nvim-cmp',
         event = 'InsertEnter',
@@ -715,22 +589,6 @@ local plugins = {
         },
         opts_extend = { "sources.default" }
     },
-    -- lazy.nvim
-    -- {
-    --     "folke/noice.nvim",
-    --     event = "VeryLazy",
-    --     opts = {
-    --         -- add any options here
-    --     },
-    --     dependencies = {
-    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    --         "MunifTanjim/nui.nvim",
-    --         -- OPTIONAL:
-    --         --   `nvim-notify` is only needed, if you want to use the notification view.
-    --         --   If not available, we use `mini` as the fallback
-    --         -- "rcarriga/nvim-notify",
-    --     }
-    -- },
 }
 
 local opts = {}
