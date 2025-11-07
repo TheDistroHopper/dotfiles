@@ -1,4 +1,4 @@
-local use_snacks = true
+local use_snacks = false
 
 -- Command to toggle between Snacks and Mini
 vim.api.nvim_create_user_command("TogglePickers", function()
@@ -92,9 +92,10 @@ vim.keymap.set('n', '<leader>gl', picker(
 
 vim.keymap.set('n', '<leader>gs', picker(
   function() Snacks.picker.git_status(DEFAULT) end,
-  function()
-      vim.cmd("Git | ZenMode")
-  end
+  function() Snacks.picker.git_status(DEFAULT) end
+  -- function()
+  --     vim.cmd("Git | ZenMode")
+  -- end
 ), {})
 
 vim.keymap.set('n', '<leader>gc', picker(
@@ -121,3 +122,17 @@ vim.keymap.set('n', '<leader>p', picker(
   function() Snacks.picker.projects() end
 ), {})
 
+
+-- Explorer
+-- vim.keymap.set("n", "<leader>e", vim.cmd.Explore)
+vim.keymap.set('n', '<leader>e', picker(
+  function() Snacks.explorer() end,
+  function()
+      local MiniFiles = require("mini.files")
+      local _ = MiniFiles.close()
+          or MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+      vim.defer_fn(function()
+          MiniFiles.reveal_cwd()
+      end, 30)
+  end
+), {})

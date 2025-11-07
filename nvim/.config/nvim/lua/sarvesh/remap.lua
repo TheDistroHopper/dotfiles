@@ -1,16 +1,3 @@
--- vim.keymap.set("n", "<leader>e", vim.cmd.Explore)
--- vim.keymap.set("n", "<leader>e", function() MiniFiles.open() end)
--- vim.keymap.set("n", "<leader>e",
---     function()
---         local MiniFiles = require("mini.files")
---         local _ = MiniFiles.close()
---             or MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
---         vim.defer_fn(function()
---             MiniFiles.reveal_cwd()
---         end, 30)
---     end)
-vim.keymap.set("n", "<leader>e", function() Snacks.explorer() end)
-
 vim.keymap.set("n", "<M-\\>", function() Snacks.terminal.toggle() end)
 vim.keymap.set("t", "<M-\\>", function() Snacks.terminal.toggle() end)
 vim.keymap.set("n", "<C-\\>", function() Snacks.terminal.toggle() end)
@@ -51,10 +38,10 @@ vim.keymap.set("n", "<leader>ca", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left>
 vim.keymap.set("n", "<leader>x", ":q!<CR>")
 
 -- copilot auto-completion
-vim.keymap.set('i', '<C-d>', 'copilot#Accept("\\<CR>")', {
-    expr = true,
-    replace_keycodes = false
-})
+-- vim.keymap.set('i', '<C-d>', 'copilot#Accept("\\<CR>")', {
+--     expr = true,
+--     replace_keycodes = false
+-- })
 vim.keymap.set("n", "<leader>t", ":TogglePickers<CR>")
 vim.keymap.set("n", "<leader>gg", function() MiniDiff.toggle_overlay() end)
-vim.g.copilot_no_tab_map = true
+-- vim.g.copilot_no_tab_map = true
