@@ -78,15 +78,15 @@ require('mini.extra').setup()
 -- Files
 -- require('mini.files').setup()
 -- Hook into MiniFiles events
-require('mini.files').setup({
-  windows = {
-    preview = false,
-    width_preview = 100,
-    width_focus = 100,
-  },
-  mappings = {
-    -- close = '<Esc>'
-    close = '<Esc>'
-  },
-})
+-- require('mini.files').setup({
+--   windows = {
+--     preview = false,
+--     width_preview = 100,
+--     width_focus = 100,
+--   },
+--   mappings = {
+--     -- close = '<Esc>'
+--     close = '<Esc>'
+--   },
+-- })
 

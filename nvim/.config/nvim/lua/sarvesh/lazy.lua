@@ -62,14 +62,14 @@ local plugins = {
                     -- title = " ",
                     -- border = "rounded",
                     position = "float",
-                    backdrop = 60,
+                    backdrop = 50,
                     height = 0.9,
                     width = 0.9,
                     zindex = 50,
                 },
                 help = {
                     position = "float",
-                    backdrop = false,
+                    backdrop = 50,
                     border = "top",
                     row = -1,
                     width = 0,
@@ -112,7 +112,7 @@ local plugins = {
             picker = { layouts = {
                 default = {
                     layout = {
-                        backdrop = 90,
+                        backdrop = 50,
                         box = "horizontal",
                         width = 0.85,
                         min_width = 100,

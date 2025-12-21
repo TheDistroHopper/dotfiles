@@ -2,86 +2,49 @@ require("tokyonight").setup({
     on_colors = function ()
     end,
     on_highlights = function(hl, c)
-        -- local prompt = "#2d3149"
         local prompt = c.blue
-        hl.TelescopeNormal = {
-            -- bg = c.bg_dark,
-            fg = c.fg_dark,
+        hl.SnacksTitle = {
+            fg = c.bg_dark,
+            bg = c.blue,
         }
-        hl.TelescopeBorder = {
+        hl.SnacksPickerInputTitle = {
+            bg = prompt,
+            fg = c.bg_dark,
+        }
+        hl.SnacksPickerInput = {
+            bg = c.bg_dark,
+            fg = prompt,
+        }
+        hl.SnacksPickerInputBorder = {
+            bg = c.bg_dark,
+            fg = prompt,
+        }
+        hl.SnacksPickerBorder = {
             bg = c.bg_dark,
             fg = c.bg_dark,
         }
-        hl.TelescopePromptNormal = {
-            bg = prompt,
-        }
-        hl.TelescopePromptBorder = {
-            bg = prompt,
-            fg = prompt,
-        }
-        hl.TelescopePromptTitle = {
-            -- bg = prompt,
-            bg = c.blue,
-            -- fg = prompt,
-        }
-        hl.TelescopePreviewTitle = {
-            -- bg = c.bg_dark,
-            bg = c.blue,
-            -- fg = c.bg_dark,
-        }
-        hl.TelescopeResultsTitle = {
+        hl.SnacksPickerBoxBorder = {
             bg = c.bg_dark,
-            -- bg = "#7aa2f7",
-            -- fg = c.bg_dark,
+            fg = c.bg_dark,
         }
-      hl.SnacksPicker = {
-        bg = c.bg_dark,
-        fg = c.fg_dark,
-      }
-      hl.SnacksPickerBorder = {
-        bg = c.bg_dark,
-        fg = c.bg_dark,
-      }
-      hl.SnacksPickerInput = {
-        -- bg = prompt,
-        bg = c.bg_dark,
-        -- fg = c.bg_dark,
-      }
-      hl.SnacksPickerInputTitle = {
-        fg = c.bg_dark,
-        bg = c.blue,
-      }
-      hl.SnacksPickerBoxTitle = {
-        -- bg = prompt,
-        -- fg = prompt
-        fg = c.bg_dark,
-        bg = c.blue,
-      }
-      hl.SnacksPickerBoxBorder = {
-        bg = c.bg_dark,
-        -- fg = c.bg_dark,
-        fg = prompt,
-      }
-      hl.SnacksPickerPreviewBorder = {
-        bg = c.bg_dark,
-        -- fg = c.bg_dark,
-        fg = prompt,
-      }
-      hl.SnacksPickerPreviewTitle = {
-        fg = c.bg_dark,
-        bg = c.blue,
-      }
-      hl.SnacksPickerInputBorder = {
-        fg = prompt,
-        bg = c.bg_dark,
-      }
+        hl.SnacksPickerPreview = {
+            bg = c.bg,
+        }
+        hl.SnacksPickerPreviewBorder = {
+            bg = c.bg,
+            fg = c.bg,
+        }
+        hl.SnacksPickerPreviewTitle = {
+            fg = c.bg_dark,
+            bg = prompt,
+        }
 
-  -- Mini
-    hl.MiniFilesBorder          = { fg = prompt, bg = c.bg_dark }
-    hl.MiniFilesTitle    = { fg = c.blue}
-    hl.MiniFilesTitleFocused           = {fg=c.blue}
-    hl.MiniPickBorder = {fg=c.blue}
-    hl.MiniPickPrompt = {fg=c.blue}
+        -- Mini
+        hl.MiniFilesBorder          = { fg = prompt, bg = c.bg_dark }
+        hl.MiniFilesTitle    = { fg = c.blue}
+        hl.MiniFilesTitleFocused           = {fg=c.blue}
+        hl.MiniPickBorder = {fg=c.blue}
+        hl.MiniPickPrompt = {fg=c.blue}
 
     end,
 })

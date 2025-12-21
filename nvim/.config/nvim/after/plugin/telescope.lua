@@ -1,4 +1,4 @@
-local use_snacks = false
+local use_snacks = true
 
 -- Command to toggle between Snacks and Mini
 vim.api.nvim_create_user_command("TogglePickers", function()
@@ -25,7 +25,7 @@ end
 DEFAULT = {
     layout = {
         preset = "default",
-        preview = false
+        preview = true
     }
 }
 
