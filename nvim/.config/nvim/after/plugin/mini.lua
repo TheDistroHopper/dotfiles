@@ -23,6 +23,7 @@ statusline.setup({
             -- local filename = MiniStatusline.section_filename({ trunc_width = 150 })
             local git = MiniStatusline.section_git({ trunc_width = 40 })
             local diff = MiniStatusline.section_diff({ trunc_width = 75 })
+            local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 
             return MiniStatusline.combine_groups({
                 { hl = mode_hl,                  strings = { mode } },
@@ -31,6 +32,7 @@ statusline.setup({
                 { hl = 'MiniStatuslineFilename', strings = { git } },
                 { hl = 'MiniStatuslineFilename', strings = { diff } },
                 '%=',
+                { hl = 'MiniStatuslineFilename', strings = { search } },
                 { hl = mode_hl, strings = { section_location_lines({trunc_width = 150}) } },
             })
         end
