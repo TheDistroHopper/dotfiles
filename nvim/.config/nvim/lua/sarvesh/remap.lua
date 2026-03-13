@@ -38,10 +38,10 @@ vim.keymap.set("n", "<leader>ca", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left>
 vim.keymap.set("n", "<leader>x", ":q!<CR>")
 
 -- copilot auto-completion
--- vim.keymap.set('i', '<C-d>', 'copilot#Accept("\\<CR>")', {
---     expr = true,
---     replace_keycodes = false
--- })
+vim.keymap.set('i', '<C-d>', 'copilot#Accept("\\<CR>")', {
+    expr = true,
+    replace_keycodes = false
+})
 vim.keymap.set("n", "<leader>t", ":TogglePickers<CR>")
 vim.keymap.set("n", "<leader>gg", function() MiniDiff.toggle_overlay() end)
--- vim.g.copilot_no_tab_map = true
+vim.g.copilot_no_tab_map = true

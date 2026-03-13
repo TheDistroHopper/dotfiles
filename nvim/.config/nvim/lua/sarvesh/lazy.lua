@@ -33,8 +33,7 @@ local plugins = {
     "lewis6991/gitsigns.nvim",
     -------------------------------------------------
     -------------------------------------------------
-    "folke/zen-mode.nvim",
-    -- "github/copilot.vim",
+    "github/copilot.vim",
     { "nvim-tree/nvim-web-devicons" },
     {
         "echasnovski/mini.icons",
@@ -106,7 +105,7 @@ local plugins = {
             terminal = {
                 win = { style = "float" },
             },
-            -- indent = { enabled = true },
+            indent = { enabled = true },
             -- input = { enabled = true },
             -- picker = { enabled = true },
             picker = { layouts = {
@@ -159,9 +158,6 @@ local plugins = {
             { "<leader>S", function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
         }
     },
-    "nvzone/volt",
-    "nvzone/showkeys",
-    "nvzone/timerly",
 
     -- Diagnostics
     "dgagn/diagflow.nvim",
@@ -222,6 +218,12 @@ local plugins = {
         },
         opts_extend = { "sources.default" }
     },
+    {
+        "aikhe/wrapped.nvim",
+        dependencies = { "nvzone/volt", "nvim-lua/plenary.nvim" },
+        cmd = { "NvimWrapped" },
+        opts = {},
+    }
 }
 
 local opts = {}
